@@ -1,0 +1,43 @@
+/* CSS HEX */
+.text-marigold{
+    color: #ECA121;
+}
+
+.text-indigo{ 
+    color: #08415c;
+}
+.text-cadet{
+    color: #56a3a6;
+}
+
+.text-indian{ 
+    color: #db5461;
+}
+
+.text-crayola{
+    color: #bce784;
+}
+
+
+.bg-marigold{ background-color: #eca121;}
+.bg-indigo{ background-color: #08415c;}
+.bg-cadet{ background-color: #56a3a6;}
+.bg-indian{ background-color: #db5461;}
+.bg-crayola{ background-color: #bce784ff;}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #08415c !important;
+    background-color: cutom-color;
+    border-color: #08415c !important;
+    border-color: cutom-cor;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #ECA121 !important;
+    background-color: cutom-color;
+    border-color: #ECA121 !important;
+    border-color: cutom-cor;
+}
+
