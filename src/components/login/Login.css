@@ -1,3 +1,9 @@
 label{
     font-size: 0.5em;
 }
+
+a{
+    color: #56a3a6 !important;
+    font-size: 1.5rem;
+    font-weight: 900;
+}

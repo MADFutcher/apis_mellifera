@@ -44,7 +44,7 @@ export default class Login extends Component {
                             </Col>
                         </Form.Row>
                         <Button variant='secondary' type="submit">
-                            Submit
+                            Login
                         </Button>
                     </Form>
                     </div>

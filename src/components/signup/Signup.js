@@ -62,7 +62,7 @@ export default class Signup extends Component {
                                 </Col>
                             </Form.Row>
                             <Button variant='secondary' type="submit">
-                                Submit
+                                Signup
                             </Button>
                         </Form>
                         </div>
