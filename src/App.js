@@ -4,14 +4,32 @@ import React, { Component } from 'react'
 import Login from './components/login/Login'
 import Signup from './components/signup/Signup'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link, Route, Switch } from 'react-router-dom'
+import { Link, Route, Switch, withRouter } from 'react-router-dom'
 import Profile from './components/profile/Profile'
+import AuthService from './components/auth-service/AuthService'
 
-export default class App extends Component {
+class App extends Component {
   constructor(props){
     super(props)
     this.state={
       loggedInUser:null
+    }
+  }
+
+  service = new AuthService()
+  
+
+  fetchUser(){
+    if(this.state.loggedInUser === null ){
+      this.service.loggedin()
+      .then(response =>{
+        this.setState({
+          loggedInUser:  response
+        }) 
+      })
+      .catch( err =>{
+        console.log(err)
+      })
     }
   }
 
@@ -23,42 +41,27 @@ export default class App extends Component {
 
 
   render(){
-    return (
-      <div className="App">
-          <Switch>
-              <Route exact path='/'>
-                {
-                    !this.state.loggedInUser ? 
-                      <div className='App-header'>
-                        <h1 className='text-indigo display-1'>MELLIFERA &#178;</h1>
-                        <div>
-                          <Login />
-                          <Link to='/signup'>
-                            Signup
-                          </Link>
-                        </div>
-                      </div>
-                      : <Profile />
-                }
-              </Route>
-              <Route exact path='/signup'>
-                <div className='App-header'>
-                  <h1 className='text-indigo display-1'>MELLIFERA &#178;</h1>
-                  <div>
-                    <Signup />
-                    <Link to='/'>
-                      Login
-                    </Link>
-                  </div>
-                </div>
-              </Route>
-              <Route exact='/profile'>
-                  <Profile />
-              </Route>
-          </Switch>
-      </div>
-    );
+    this.fetchUser()
+    if(this.state.loggedInUser){
+      return (
+          <div className="App">
+            <Switch>
+              <Route exact path='/' render={()=><Profile user={this.state.loggedInUser} logoutUser={this.getTheUser} {...this.props}/>} />
+              <Route exact path='/profile' component={Profile} />
+            </Switch>
+          </div>
+      )
+    }else{
+      return (
+        <div className="App">
+            <Switch>
+                <Route exact path='/' render={()=><Login getUser={this.getTheUser}/> } />
+                <Route exact path='/signup' render={()=> <Signup getUser={this.getTheUser} {...this.props}/>} />
+            </Switch>
+        </div>
+      );
+    }
   }
 }
-
+export default withRouter(App)
 
