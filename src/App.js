@@ -6,7 +6,9 @@ import Signup from './components/signup/Signup'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, Route, Switch, withRouter } from 'react-router-dom'
 import Profile from './components/profile/Profile'
-import AuthService from './components/auth-service/AuthService'
+import protectedRoute from './components/auth/protectedRoutes'
+import AuthService from './components/services/AuthService'
+import Hives from './components/hives/Hives'
 
 class App extends Component {
   constructor(props){
@@ -46,8 +48,9 @@ class App extends Component {
       return (
           <div className="App">
             <Switch>
-              <Route exact path='/' render={()=><Profile user={this.state.loggedInUser} logoutUser={this.getTheUser} {...this.props}/>} />
-              <Route exact path='/profile' component={Profile} />
+              <Route exact path='/' render={(props)=><Profile user={this.state.loggedInUser} logoutUser={this.getTheUser} {...props}/>} />
+              <Route exact path='/profile' render={(props)=><Profile user={this.state.loggedInUser} logoutUser={this.getTheUser} {...props}/>} />
+              <Route exact path='/hives' render={(props)=><Hives user={this.state.loggedInUser} logoutUser={this.getTheUser} {...props}/>} />
             </Switch>
           </div>
       )

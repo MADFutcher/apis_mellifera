@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
-import AuthService from '../auth-service/AuthService'
+import AuthService from '../services/AuthService'
 
 export default class Signup extends Component {
     constructor(props){
@@ -13,6 +13,7 @@ export default class Signup extends Component {
             surname: '',
             username:'',
             password:'',
+            email:'',
         }
     }
 
@@ -33,14 +34,16 @@ export default class Signup extends Component {
         const password = this.state.password;
         const firstname = this.state.firstname;
         const surname = this.state.surname;
+        const email = this.state.email;
 
-        this.service.signup(username, password, firstname, surname)
+        this.service.signup(username, password, firstname, surname, email)
             .then(response => {
                 this.setState({
-                    username: "",
-                    password: "",
+                    username: '',
+                    password: '',
                     firstname:'',
                     surname: '',
+                    email:'',
                 });
 
                 this.props.getUser(response)
@@ -69,6 +72,12 @@ export default class Signup extends Component {
                                         <Form.Group controlId="formBasicSurname">
                                             <Form.Label>Surname</Form.Label>
                                             <Form.Control type="text" name="surname" placeholder="Enter Surname"  value={this.state.surname} onChange={this.handleOnChange}/>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col>
+                                        <Form.Group controlId="formBasicEmail">
+                                            <Form.Label>Email</Form.Label>
+                                            <Form.Control type="text" name="email" placeholder="Enter Email"  value={this.state.email} onChange={this.handleOnChange}/>
                                         </Form.Group>
                                     </Col>
                                 </Form.Row>

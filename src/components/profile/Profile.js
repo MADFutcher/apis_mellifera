@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './Profile.css'
 import Button from 'react-bootstrap/Button'
-import AuthService from '../auth-service/AuthService'
+import AuthService from '../services/AuthService'
 import NavBar from '../navbar/NavBar'
 
 export default class Profile extends Component {
@@ -22,6 +22,7 @@ export default class Profile extends Component {
 
 
     render() {
+        console.log(this.props.user)
         return (
             <React.Fragment>
                 <NavBar logUserOut={this.logout} user={this.props.user}/>

@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form'
 import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
-import AuthService from '../auth-service/AuthService'
+import AuthService from '../services/AuthService'
 
 export default class Login extends Component {
     constructor(props){
