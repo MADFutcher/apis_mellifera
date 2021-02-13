@@ -6,6 +6,7 @@ import AuthService from '../services/AuthService'
 import HiveService from '../services/HiveServices'
 import UpdateHive from './UpdateHive'
 import NavBar from '../navbar/NavBar'
+import AddHive from '../hives/AddHive'
 import './Hives.css'
 
 export default class Hives extends Component {
@@ -37,6 +38,13 @@ export default class Hives extends Component {
     }
 
     render() {
+        let heading
+        if(this.state.user.hives.length===0){
+            heading = <React.Fragment><h1>You need to register a hive first!</h1> <AddHive user={this.props.user}/> </React.Fragment>
+        }else{
+            heading = <h1>Click on a hive to Update</h1>
+        }
+
         return (
             <React.Fragment>
                 <NavBar logUserOut={this.logout} user={this.state.user}/>
@@ -47,7 +55,7 @@ export default class Hives extends Component {
                             <Map hives={this.state.user.hives} clickedHive={this.handleClickedHive}/>
                         </Col>
                         <Col xs={12} md={6} >
-                            {!this.state.hiveClicked ? <h1>Click on a hive to Update</h1> : <UpdateHive hive={this.state.hiveClicked}/>}
+                            {!this.state.hiveClicked ? heading : <UpdateHive hive={this.state.hiveClicked}/>}
                         </Col>
                     </Row>
                 </div>

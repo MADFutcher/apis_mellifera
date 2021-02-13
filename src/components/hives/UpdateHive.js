@@ -10,7 +10,7 @@ export default class UpdateHive extends Component {
     constructor(props){
         super(props)
         this.state={
-            title:this.props.hive.name,
+            title:this.props.hive.title,
             info:this.props.hive.info,
             age:this.props.hive.age,
             location:{ coordinates:{
@@ -31,7 +31,7 @@ export default class UpdateHive extends Component {
                         <Col>
                             <Form.Group controlId="formBasicTitle">
                                 <Form.Label>Name</Form.Label>
-                                <Form.Control type="text" name="title" placeholder="Name of Hive"  value={this.state.name} onChange={this.handleOnChange}/>
+                                <Form.Control type="text" name="title" placeholder="Name of Hive"  value={this.state.title} onChange={this.handleOnChange}/>
                             </Form.Group>
                         </Col>
                         <Col>
@@ -78,8 +78,8 @@ export default class UpdateHive extends Component {
                             <Form.Control as="textarea" rows={3} placeholder="Info about Hive" value={this.state.info} onChange={this.handleOnChange}/>
                         </Form.Group>
                     </Form.Row>
-                    <Button variant='secondary' type="submit" onClick={this.submitLogin}>
-                        Save
+                    <Button variant='secondary' type="submit" onClick={this.updateHive}>
+                        Update
                     </Button>
                 </Form>
             </div>

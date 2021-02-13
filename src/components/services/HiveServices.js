@@ -12,12 +12,18 @@ class HiveService {
 
   getHivesForOwner = (owner) => {
     return this.hiveService.get(`/hives/${owner}`)
-    .then(response => response.data)
+               .then(response => response.data)
   }
 
   getHive = (hiveId) => {
     return this.hiveService.get(`/hive/${hiveId}`)
-    .then(response => response.data)
+               .then(response => response.data)
+  }
+
+  newHive = (hiveInfo) =>{
+    console.log(hiveInfo)
+    return this.hiveService.post('/hives/new',hiveInfo)
+               .then(response => console.log(response.data))
   }
 }
 
