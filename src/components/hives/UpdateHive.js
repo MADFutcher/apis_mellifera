@@ -1,46 +1,63 @@
 import React, { Component } from 'react'
-import Form from 'react-bootstrap/Form'
-import HiveServices from '../services/HiveServices'
 import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
-
-
+import Form from 'react-bootstrap/Form'
+import HiveService from '../services/HiveServices'
 
 export default class UpdateHive extends Component {
     constructor(props){
         super(props)
-        this.state={
-            title: this.props.hive ? this.props.hive.title : '',
+        this.state= {
+            title:'',
             info:'',
             age:'',
-            location:{ coordinates:{
-                lat:'',
-                lng:'',
-            }
-                
-            },
             race:'',
+            lat:'',
+            lng:'',
         }
     }
 
-    handleOnChange = (e) =>{
+    componentDidUpdate(prevProps){
+        if(this.props.hive){
+            if (this.props.hive !== prevProps.hive) {
+                this.setState({
+                    title:this.props.hive.title,
+                    info:this.props.hive.info,
+                    age:this.props.hive.age,
+                    race:this.props.hive.race,
+                    lat:this.props.hive.location.coordinates[0],
+                    lng:this.props.hive.location.coordinates[1],
+                })
+            }
+        }
+    }
+
+    handleOnChange=(e)=>{
         const target = e.target
         const name = target.name
         const val = target.value
+
         this.setState({
             [name]:val
         })
     }
 
-    componentDidMount(){
-        console.log(this.props)
+    createUpdatedHive=(e)=>{
+        e.preventDefault()
+        const updatedHive = {
+            title:this.state.title,
+            info:this.state.info,
+            age:this.state.age,
+            race:this.state.race,
+            location:{type:"Point",coordinates:[this.state.lat, this.state.lng]},
+            _id:this.props.hive._id
+        }
+        this.props.updateHive(updatedHive)
     }
 
 
     render() {
-        console.log("state hive title: ", this.state)
-        console.log("Props hive title: ", this.props.hive)
         return (
             <div className="mt-5">
                 <Form className='mr-md-5 ml-md-3 ml-2 mr-2'>
@@ -79,12 +96,12 @@ export default class UpdateHive extends Component {
                             <Form.Row>
                                 <Form.Group as={Col} controlId="formLocLat">
                                     <Form.Label>Lat</Form.Label>
-                                    <Form.Control type="text" name="lat" placeholder="Latitude"  value={this.state.location.coordinates.lat} onChange={this.handleOnChange}/>
+                                    <Form.Control type="text" name="lat" placeholder="Latitude"  value={this.state.lat} onChange={this.handleOnChange}/>
                                 </Form.Group>
 
                                 <Form.Group as={Col} controlId="formLocLng">
                                     <Form.Label>Long</Form.Label>
-                                    <Form.Control type="text" name="lng" placeholder="Longitude"  value={this.state.location.coordinates.lng} onChange={this.handleOnChange}/>
+                                    <Form.Control type="text" name="lng" placeholder="Longitude"  value={this.state.lng} onChange={this.handleOnChange}/>
                                 </Form.Group>
                             </Form.Row>
                         </Col>
@@ -92,10 +109,10 @@ export default class UpdateHive extends Component {
                     <Form.Row>
                         <Form.Group as={Col} controlId="formLocLat">
                             <Form.Label>Lat</Form.Label>
-                            <Form.Control as="textarea" rows={3} placeholder="Info about Hive" value={this.state.info} onChange={this.handleOnChange}/>
+                            <Form.Control as="textarea" rows={3} name="info" placeholder="Info about Hive" value={this.state.info} onChange={this.handleOnChange}/>
                         </Form.Group>
                     </Form.Row>
-                    <Button variant='secondary' type="submit" onClick={this.updateHive}>
+                    <Button variant='secondary' type="submit" onClick={this.createUpdatedHive}>
                         Update
                     </Button>
                 </Form>

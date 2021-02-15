@@ -20,7 +20,12 @@ export default class Hives extends Component {
 
     AuthService = new AuthService()
     HiveService = new HiveService()
-
+    
+    componentDidUpdate(prevProps){
+        if(this.props.user !== prevProps.user){
+            this.setState({user: this.props.user})
+        }
+    }
 
     logout = (e) =>{
         this.AuthService.logout()
@@ -33,17 +38,26 @@ export default class Hives extends Component {
         this.HiveService.getHive(hiveId)
                         .then(response => {
                             this.setState({hiveClicked: response})
-                        })        
+                        }, err => console.log(err))        
+    }
+
+    handleUpdateHive = (hive) =>{
+        this.HiveService.updateHive(hive)
+                        .then(response => {
+                            this.AuthService.loggedin()
+                                            .then(user => {
+                                                this.props.refreshUserData(user)}, err=>console.log(err))
+                        }, err=>console.log(err))
     }
 
     render() {
+        console.log(this.props)
         let heading
         if(this.state.user.hives.length===0){
             heading = <React.Fragment><h1>You need to register a hive first!</h1> <AddHive user={this.props.user}/> </React.Fragment>
         }else{
             heading = <h1>Click on a hive to Update</h1>
         }
-        console.log("Clicked hive: ", this.state.hiveClicked)
         return (
             <React.Fragment>
                 <NavBar logUserOut={this.logout} user={this.state.user}/>
@@ -54,14 +68,14 @@ export default class Hives extends Component {
                             <Map hives={this.state.user.hives} clickedHive={this.handleClickedHive}/>
                         </Col>
                         <Col xs={12} md={6} >
-                           <UpdateHive hive={this.state.hiveClicked}/>
+                           <UpdateHive hive={this.state.hiveClicked} updateHive={this.handleUpdateHive}/>
                         </Col>
                     </Row>
-                    <Row>
+                    {/* <Row>
                         <Col>
                             <AddHive user={this.props.user} {...this.props}/>
                         </Col>
-                    </Row>
+                    </Row> */}
                 </div>
             </React.Fragment>
         )

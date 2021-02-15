@@ -3,6 +3,7 @@ import './Profile.css'
 import Button from 'react-bootstrap/Button'
 import AuthService from '../services/AuthService'
 import NavBar from '../navbar/NavBar'
+import { Link } from 'react-router-dom'
 
 export default class Profile extends Component {
     constructor(props){
@@ -27,7 +28,9 @@ export default class Profile extends Component {
             <React.Fragment>
                 <NavBar logUserOut={this.logout} user={this.props.user}/>
                 <div className='container-fluid profile-container'>
-                    <h1 className="display-4"></h1>
+                    <Link to='/hives'>
+                        Hives
+                    </Link>
                 </div>
             </React.Fragment>
         )

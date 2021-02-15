@@ -21,9 +21,13 @@ class HiveService {
   }
 
   newHive = (hiveInfo) =>{
-    console.log(hiveInfo)
     return this.hiveService.post('/hives/new',hiveInfo)
                .then(response => response.data)
+  }
+
+  updateHive = (hiveInfo) => {
+    return this.hiveService.post(`hive/${hiveInfo._id}`,hiveInfo)
+                    .then(response => response.data)
   }
 }
 
