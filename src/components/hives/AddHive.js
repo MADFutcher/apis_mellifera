@@ -46,6 +46,7 @@ export default class AddHive extends Component {
             owner:this.props.user._id
         }
         this.hiveServices.newHive(newHiveDetails)
+        this.props.history.push('/')
     }
 
     

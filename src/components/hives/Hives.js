@@ -30,11 +30,10 @@ export default class Hives extends Component {
 
     handleClickedHive = (hive) =>{
         const hiveId = hive
-        this.HiveService
-            .getHive(hiveId)          
-            .then(hive => this.setState({hiveClicked: hive}), err => console.log(err))
-
-
+        this.HiveService.getHive(hiveId)
+                        .then(response => {
+                            this.setState({hiveClicked: response})
+                        })        
     }
 
     render() {
@@ -44,7 +43,7 @@ export default class Hives extends Component {
         }else{
             heading = <h1>Click on a hive to Update</h1>
         }
-
+        console.log("Clicked hive: ", this.state.hiveClicked)
         return (
             <React.Fragment>
                 <NavBar logUserOut={this.logout} user={this.state.user}/>
@@ -55,7 +54,12 @@ export default class Hives extends Component {
                             <Map hives={this.state.user.hives} clickedHive={this.handleClickedHive}/>
                         </Col>
                         <Col xs={12} md={6} >
-                            {!this.state.hiveClicked ? heading : <UpdateHive hive={this.state.hiveClicked}/>}
+                           <UpdateHive hive={this.state.hiveClicked}/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <AddHive user={this.props.user} {...this.props}/>
                         </Col>
                     </Row>
                 </div>

@@ -18,7 +18,6 @@ function Map(props) {
   const hives = props.hives
 
   const renderMarkers = () => {
-    console.log(hives)
       const markers = hives.map(hive=>{
           const lat = hive.location.coordinates[0]
           const lng = hive.location.coordinates[1]
