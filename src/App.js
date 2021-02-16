@@ -49,7 +49,7 @@ class App extends Component {
           <div className="App">
             <Switch>
               <Route exact path='/' render={(props)=><Profile user={this.state.loggedInUser} logoutUser={this.getTheUser} {...props}/>} />
-              <Route exact path='/profile' render={(props)=><Profile user={this.state.loggedInUser} logoutUser={this.getTheUser} {...props}/>} />
+              {/* <Route exact path='/profile' render={(props)=><Profile user={this.state.loggedInUser} logoutUser={this.getTheUser} {...props}/>} /> */}
               <Route exact path='/hives' render={(props)=><Hives user={this.state.loggedInUser} logoutUser={this.getTheUser} refreshUserData={this.getTheUser} {...props}/>} />
             </Switch>
           </div>

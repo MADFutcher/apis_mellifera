@@ -16,9 +16,11 @@ export default class Profile extends Component {
     service = new AuthService()
 
     logout = (e) =>{
-        this.service.logout()
-        this.props.logoutUser(null)
-        this.props.history.push('/')
+        this.service.logout().then(()=>{
+            this.props.logoutUser(null)
+            this.props.history.push('/')
+        }, err=>{console.log(err)})
+        
     };
 
 
