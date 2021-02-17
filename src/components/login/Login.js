@@ -39,8 +39,9 @@ export default class Login extends Component {
                     username: "",
                     password: "",
                 });
-                this.props.getUser(response)
-                
+                localStorage.sid = response.data.user._id
+                localStorage.setItem("userData",JSON.stringify(response.data.user))
+                this.props.history.push('/')
             })
             .catch(error => console.log(error))
     }

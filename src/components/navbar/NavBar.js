@@ -9,12 +9,7 @@ import Button from 'react-bootstrap/Button'
 import { Link } from "react-router-dom";
 
 export default class NavBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loggedInUser: this.props.user,
-    };
-  }
+
 
   logout = () =>{
       this.props.logUserOut()
@@ -23,25 +18,20 @@ export default class NavBar extends Component {
   render() {
     return (
       <React.Fragment>
-        {
-          this.state.loggedInUser ?
-            <Navbar className='bg-indigo' expand="lg" sticky="top">
-            <Navbar.Brand className='text-marigold med pl-2'>MELLIFERA &#178;</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="ml-auto">
-                    <Link to='/profile' className='text-marigold med pr-2 mr-3'>
-                          {this.state.loggedInUser.username}
-                    </Link>
-                    <Link to='/' className='text-marigold med pr-2' onClick={this.logout}>
-                        Logout
-                    </Link>
-                </Nav>
-            </Navbar.Collapse>
-          </Navbar>
-          : null
-      }
-        
+        <Navbar className='bg-indigo' expand="lg" sticky="top">
+          <Navbar.Brand className='text-marigold med pl-2'>MELLIFERA &#178;</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="ml-auto">
+                  <Link to='/profile' className='text-marigold med pr-2 mr-3'>
+                        {this.props.user.username}
+                  </Link>
+                  <Link to='/' className='text-marigold med pr-2' onClick={this.logout}>
+                      Logout
+                  </Link>
+              </Nav>
+          </Navbar.Collapse>
+        </Navbar>
       </React.Fragment>
     );
   }

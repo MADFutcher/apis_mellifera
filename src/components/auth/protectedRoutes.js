@@ -1,16 +1,16 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
  
-const protectedRoute  = ({component: Component, user, ...rest}) => {
-  console.log({component: Component, user, ...rest})
+const protectedRoute  = ({component: Component, id, isLoggedIn, userData, ...rest}) => {
+  console.log({component: Component, id, isLoggedIn, userData, ...rest})
     return (
       <Route
         {...rest}
         render={ props  => {
-            if(user){
-              return <Component {...props} loggedInUser={user}/>
+            if(id){
+              return <Component {...props} id={id} user={userData} {...rest}/>
             } else {
-              return <Redirect to={{pathname: '/', state: {from: props.location}}} />
+              return <Redirect to={{pathname: '/login', state: {from: props.location}}} />
             }
           }
         }

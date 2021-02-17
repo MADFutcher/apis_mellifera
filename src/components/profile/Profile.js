@@ -8,24 +8,18 @@ import { Link } from 'react-router-dom'
 export default class Profile extends Component {
     constructor(props){
         super(props)
-        this.state = {
+    }
 
-        }
-    } 
-    
     service = new AuthService()
 
     logout = (e) =>{
         this.service.logout().then(()=>{
-            this.props.logoutUser(null)
+            localStorage.clear()
             this.props.history.push('/')
         }, err=>{console.log(err)})
-        
     };
 
-
-    render() {
-        console.log(this.props.user)
+    render() {   
         return (
             <React.Fragment>
                 <NavBar logUserOut={this.logout} user={this.props.user}/>
